@@ -3,7 +3,7 @@
     id: number;
     name: string;
     login: string;
-    avatarUrl?: string;
+    avatarUrl: string | null;
     createdAt: Date;
   }
 }
