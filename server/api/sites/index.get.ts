@@ -1,9 +1,10 @@
 ﻿export default defineEventHandler(async (event) => {
   const { user } = await requireUserSession(event);
 
-  return useDrizzle()
+  const sites = await useDrizzle()
     .select()
     .from(tables.sites)
-    .where(eq(tables.sites.userId, user.id))
-    .get();
+    .where(eq(tables.sites.user, user.id));
+
+  return sites ?? [];
 });

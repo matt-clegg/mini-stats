@@ -18,6 +18,20 @@ export default eventHandler(async (event) => {
   //   });
   // }
 
+  const existingSite = await useDrizzle()
+    .query
+    .sites
+    .findFirst({
+      where: eq(tables.sites.id, body.s)
+    });
+
+  if (!existingSite) {
+    throw createError({
+      statusCode: 401,
+      statusMessage: "Not allowed"
+    });
+  }
+
   const eventData = {
     site: body.s,
     url: body.u,

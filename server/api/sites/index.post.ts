@@ -11,7 +11,7 @@ export default eventHandler(async (event) => {
   const site = await useDrizzle()
     .insert(tables.sites)
     .values({
-      userId: user.id,
+      user: user.id,
       name: body.name,
       domain: body.domain,
       createdAt: new Date()

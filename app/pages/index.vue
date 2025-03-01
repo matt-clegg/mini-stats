@@ -19,8 +19,26 @@ async function createSite() {
     siteName.value = null;
     siteDomain.value = null;
   }
-  catch (err: any) {
+  catch (err) {
     console.error("Error creating site:", err);
+  }
+}
+
+async function submitEvent() {
+  try {
+    await $fetch("/api/ingest/event", {
+      method: "POST",
+      body: {
+        s: sites.value[0].id,
+        u: "/foo/bar",
+        r: "www.google.com",
+        b: "Chrome",
+        d: "Mobile"
+      }
+    });
+  }
+  catch (err) {
+    console.error("Error submitting event:", err);
   }
 }
 </script>
@@ -58,6 +76,13 @@ async function createSite() {
           {{ sites }}
         </pre>
         </div>
+      </div>
+
+      <div>
+        <h2>Event</h2>
+        <button @click="submitEvent">
+          Submit event
+        </button>
       </div>
     </template>
   </div>
